@@ -10,7 +10,6 @@
         body {
             background: linear-gradient(to right, #fbc2eb, #a6c1ee);
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -30,9 +29,22 @@
             margin-bottom: 20px;
         }
 
-        #game-control, #game-status {
+        #game-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
             width: 100%;
-            max-width: 500px;
+        }
+
+        #game-control {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game-status {
+            width: 40%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -195,45 +207,44 @@
         <button id="start-button" onclick="startGame()">Let's Play!</button>
     </div>
 
-    <div id="game-info">
-        <h1>Welcome to the Game!</h1>
-        <p>Guess the number between 1 and 10:</p>
-    </div>
+    <div id="game-container">
 
-    <div id="game-control">
-        <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
-            <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
-            <input type="submit" value="Submit" id="submit-button">
-        </form>
-        
-        <div id="number-grid">
-            <button class="number-button" onclick="appendNumber(1)">1</button>
-            <button class="number-button" onclick="appendNumber(2)">2</button>
-            <button class="number-button" onclick="appendNumber(3)">3</button>
-            <button class="number-button" onclick="appendNumber(4)">4</button>
-            <button class="number-button" onclick="appendNumber(5)">5</button>
-            <button class="number-button" onclick="appendNumber(6)">6</button>
-            <button class="number-button" onclick="appendNumber(7)">7</button>
-            <button class="number-button" onclick="appendNumber(8)">8</button>
-            <button class="number-button" onclick="appendNumber(9)">9</button>
-            <button class="number-button" onclick="appendNumber(0)">0</button>
-            <button class="number-button" onclick="clearGuess()">Clear</button>
-            <button class="number-button" onclick="playGame()">Submit</button>
+        <div id="game-control">
+            <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
+                <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
+                <input type="submit" value="Submit" id="submit-button">
+            </form>
+            
+            <div id="number-grid">
+                <button class="number-button" onclick="appendNumber(1)">1</button>
+                <button class="number-button" onclick="appendNumber(2)">2</button>
+                <button class="number-button" onclick="appendNumber(3)">3</button>
+                <button class="number-button" onclick="appendNumber(4)">4</button>
+                <button class="number-button" onclick="appendNumber(5)">5</button>
+                <button class="number-button" onclick="appendNumber(6)">6</button>
+                <button class="number-button" onclick="appendNumber(7)">7</button>
+                <button class="number-button" onclick="appendNumber(8)">8</button>
+                <button class="number-button" onclick="appendNumber(9)">9</button>
+                <button class="number-button" onclick="appendNumber(0)">0</button>
+                <button class="number-button" onclick="clearGuess()">Clear</button>
+                <button class="number-button" onclick="playGame()">Submit</button>
+            </div>
+            
+            <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
         </div>
-        
-        <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
-    </div>
 
-    <div id="game-status">
-        <div id="scoreboard">
-            <h2>Scoreboard</h2>
-            <p>Wins: <span id="win-count">0</span></p>
-            <p>Losses: <span id="loss-count">0</span></p>
+        <div id="game-status">
+            <div id="scoreboard">
+                <h2>Scoreboard</h2>
+                <p>Wins: <span id="win-count">0</span></p>
+                <p>Losses: <span id="loss-count">0</span></p>
+            </div>
+            <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
+            <ul id="guess-history"></ul>
+            <p id="result"></p>
+            <p id="countdown"></p>
         </div>
-        <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-        <ul id="guess-history"></ul>
-        <p id="result"></p>
-        <p id="countdown"></p>
+
     </div>
 
     <script src="game.js"></script>
