@@ -1,8 +1,9 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
 let guessInput = document.getElementById('guess');
-let winCount = localStorage.getItem('wins') || 0;
-let lossCount = localStorage.getItem('losses') || 0;
+let winCount = Number(localStorage.getItem('wins')) || 0;
+let lossCount = Number(localStorage.getItem('losses')) || 0;
+
 document.getElementById('win-count').textContent = winCount;
 document.getElementById('loss-count').textContent = lossCount;
 
@@ -81,8 +82,8 @@ function resetGame() {
 function resetScoreboard() {
   winCount = 0;
   lossCount = 0;
-  localStorage.setItem('wins', winCount);
-  localStorage.setItem('losses', lossCount);
+  localStorage.setItem('wins', winCount.toString());
+  localStorage.setItem('losses', lossCount.toString());
   document.getElementById('win-count').textContent = winCount;
   document.getElementById('loss-count').textContent = lossCount;
 }
