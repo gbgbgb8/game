@@ -79,8 +79,10 @@ function resetGame() {
 }
 
 function resetScoreboard() {
-    localStorage.setItem('wins', 0);
-    localStorage.setItem('losses', 0);
-    document.getElementById('win-count').textContent = '0';
-    document.getElementById('loss-count').textContent = '0';
+  winCount = 0;
+  lossCount = 0;
+  localStorage.setItem('wins', winCount);
+  localStorage.setItem('losses', lossCount);
+  document.getElementById('win-count').textContent = winCount;
+  document.getElementById('loss-count').textContent = lossCount;
 }
