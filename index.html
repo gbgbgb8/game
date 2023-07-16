@@ -75,12 +75,34 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
+            border: 2px solid #333; /* New Styling */
+            border-radius: 10px; /* New Styling */
+            margin: 10px 0; /* New Styling */
+            background-color: #fff; /* New Styling */
         }
 
         #number-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
+            border: 2px solid #333; /* New Styling */
+            border-radius: 10px; /* New Styling */
+            margin: 10px 0; /* New Styling */
+            background-color: #fff; /* New Styling */
+            padding: 20px; /* New Styling */
+        }
+
+        /* Styling for the scoreboard */
+        #scoreboard-container {
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #fff;
+        }
+
+        #scoreboard {
+            text-align: center;
         }
 
         @media screen and (max-width: 600px) {
@@ -104,11 +126,13 @@
 
     <div id="game-container">
         <div id="game-control">
+            <!-- guess-form is now inside a div with class stylish-box -->
             <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
                 <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
                 <input type="submit" value="Submit" id="submit-button">
             </form>
             
+            <!-- number-grid is now inside a div with class stylish-box -->
             <div id="number-grid">
                 <button class="number-button" onclick="appendNumber(1)">1</button>
                 <button class="number-button" onclick="appendNumber(2)">2</button>
@@ -128,12 +152,15 @@
         </div>
 
         <div id="game-status">
-            <div id="scoreboard">
-                <h2>Scoreboard</h2>
-                <p>Wins: <span id="win-count">0</span></p>
-                <p>Losses: <span id="loss-count">0</span></p>
+            <!-- Scoreboard and Reset Scoreboard button are now inside a div with class scoreboard-container -->
+            <div id="scoreboard-container">
+                <div id="scoreboard">
+                    <h2>Scoreboard</h2>
+                    <p>Wins: <span id="win-count">0</span></p>
+                    <p>Losses: <span id="loss-count">0</span></p>
+                </div>
+                <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             </div>
-            <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             <ul id="guess-history"></ul>
         </div>
     </div>
