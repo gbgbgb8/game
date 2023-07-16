@@ -1,6 +1,7 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
 
+
 function playGame() {
   let userGuess = document.getElementById('guess').value;
   attempts++;
