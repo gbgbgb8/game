@@ -32,7 +32,8 @@
 
         #result-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
             width: 100%;
             margin-bottom: 20px;
         }
@@ -120,6 +121,9 @@
         }
 
         #guess-history {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             list-style: none;
             padding: 0;
             width: 100%;
@@ -129,7 +133,7 @@
             background-color: #FFF;
             color: #333;
             padding: 5px;
-            margin-bottom: 5px;
+            margin: 5px;
             border-radius: 5px;
         }
 
@@ -203,12 +207,10 @@
         #start-button:hover {
             background-color: #ddd;
         }
-
     </style>
 </head>
 
 <body>
-
     <div id="splash-screen">
         <h1>Kelsey's number guessing game!</h1>
         <p>We have selected a random number between 1 and 10. See if you can guess it in 3 attempts:</p>
@@ -217,18 +219,17 @@
 
     <div id="result-container">
         <p id="result"></p>
-        <p id="message"></p>
+        <ul id="guess-history"></ul>
         <p id="countdown"></p>
     </div>
 
     <div id="game-container">
-
         <div id="game-control">
             <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
                 <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
                 <input type="submit" value="Submit" id="submit-button">
             </form>
-            
+
             <div id="number-grid">
                 <button class="number-button" onclick="appendNumber(1)">1</button>
                 <button class="number-button" onclick="appendNumber(2)">2</button>
@@ -243,7 +244,7 @@
                 <button class="number-button" onclick="clearGuess()">Clear</button>
                 <button class="number-button" onclick="playGame()">Submit</button>
             </div>
-            
+
             <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
         </div>
 
@@ -254,9 +255,7 @@
                 <p>Losses: <span id="loss-count">0</span></p>
             </div>
             <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-            <ul id="guess-history"></ul>
         </div>
-
     </div>
 
     <script src="game.js"></script>
