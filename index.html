@@ -10,35 +10,25 @@
             background: linear-gradient(to right, #fbc2eb, #a6c1ee);
             font-family: Arial, sans-serif;
             display: grid;
-            grid-template-rows: auto 1fr;
             grid-template-columns: 1fr 2fr 1fr;
             grid-gap: 50px;
             padding: 20px;
         }
 
-        #info-banner {
-            grid-row: 1;
-            grid-column: 1 / span 3;
-            background-color: #a6c1ee;
+        h1, p {
             color: #FFF;
-            padding: 20px;
-            text-align: center;
-            font-size: 20px;
         }
 
         #game-info {
-            grid-row: 2;
             grid-column: 1;
             padding: 20px;
         }
 
         #game-control {
-            grid-row: 2;
             grid-column: 2;
         }
 
         #game-status {
-            grid-row: 2;
             grid-column: 3;
         }
 
@@ -50,25 +40,133 @@
             text-align: center;
         }
 
-        #guess-history {
-            margin-top: 20px;
+        #guess {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        /* ... rest of your CSS ... */
+        #guess-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+            color: #FFF;
+        }
+
+        input[type=number] {
+            width: 50px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        input[type=submit],
+        #play-again {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #FFF;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type=submit]:hover,
+        #play-again:hover {
+            background-color: #ddd;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 20px;
+            color: #FFF;
+            margin-bottom: 10px;
+        }
+
+        #guess-history {
+            list-style: none;
+            padding: 0;
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        #guess-history li {
+            background-color: #FFF;
+            color: #333;
+            padding: 5px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        @media screen and (max-width: 600px) {
+            input[type=number] {
+                width: 100px;
+            }
+
+            #guess-history {
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+
+        #number-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .number-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #FFF;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 20px;
+        }
+
+        .number-button:hover {
+            background-color: #ddd;
+        }
+
+        #reset-scoreboard {
+            margin: 10px auto;
+            display: block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #FFF;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #reset-scoreboard:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 
 <body>
-    <div id="info-banner">
+    <div id="game-info">
         <h1>Guess the Number!</h1>
         <p>Welcome to Kelsey's number guessing game!</p>
         <p>We have selected a random number between 1 and 10. See if you can guess it in 3 attempts:</p>
     </div>
     
     <div id="game-control">
-        <form id="guess-form" style="display:none;" onsubmit="event.preventDefault(); playGame();">
+        <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
             <label for="guess">Enter your guess:</label>
-            <input type="number" id="guess" name="guess" min="0" max="10" readonly>
+            <input type="number" id="guess" name="guess" min="0" max="10">
             <input type="submit" value="Submit" id="submit-button">
         </form>
         
@@ -91,13 +189,15 @@
     </div>
 
     <div id="game-status">
+        <p id="countdown"></p>
+        <p id="result"></p>
+        <ul id="guess-history"></ul>
         <div id="scoreboard">
             <h2>Scoreboard</h2>
             <p>Wins: <span id="win-count">0</span></p>
             <p>Losses: <span id="loss-count">0</span></p>
         </div>
         <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-        <ul id="guess-history"></ul>
     </div>
 
     <script src="game.js"></script>
