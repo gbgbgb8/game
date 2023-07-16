@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-    
 <head>
     <style>
         * {
@@ -35,7 +34,7 @@
             color: #FFF;
         }
 
-        input[type=text] {
+        input[type=number] {
             width: 50px;
             padding: 10px;
             border: none;
@@ -83,7 +82,7 @@
         }
 
         @media screen and (max-width: 600px) {
-            input[type=text] {
+            input[type=number] {
                 width: 100px;
             }
 
@@ -105,7 +104,7 @@
 
     <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
         <label for="guess">Enter your guess:</label>
-        <input type="text" id="guess" name="guess">
+        <input type="number" id="guess" name="guess" min="1" max="10">
         <input type="submit" value="Submit" id="submit-button">
     </form>
     

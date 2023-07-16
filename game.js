@@ -1,9 +1,13 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
 
+let guessInput = document.getElementById('guess');
+guessInput.addEventListener('focus', function() {
+    this.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+});
 
 function playGame() {
-  let userGuess = document.getElementById('guess').value;
+  let userGuess = guessInput.value;
   attempts++;
 
   let guessHistory = document.getElementById('guess-history');
@@ -27,11 +31,11 @@ function playGame() {
   }
 
   guessHistory.appendChild(guessResult);
-  document.getElementById('guess').value = ""; // clear the input for the next guess
+  guessInput.value = ""; // clear the input for the next guess
 }
 
 function endGame() {
-    document.getElementById('guess').disabled = true; // disable input
+    guessInput.disabled = true; // disable input
     document.getElementById('submit-button').style.display = 'none'; // hide submit button
 
     // start the countdown
@@ -52,7 +56,7 @@ function endGame() {
 }
 
 function resetGame() {
-    document.getElementById('guess').disabled = false; // enable input
+    guessInput.disabled = false; // enable input
     document.getElementById('submit-button').style.display = 'block'; // show submit button
     document.getElementById('guess-history').innerHTML = ''; // clear guess history
     document.getElementById('result').innerHTML = ''; // clear result
