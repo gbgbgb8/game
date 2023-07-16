@@ -23,13 +23,13 @@ function playGame() {
   let guessResult = document.createElement('li');
 
   if (userGuess < randomNumber) {
-    document.getElementById('result').innerHTML = "Too low! Try again.";
+    document.getElementById('message').innerHTML = "Too low! Try again.";
     guessResult.textContent = userGuess + " - Too low";
   } else if (userGuess > randomNumber) {
-    document.getElementById('result').innerHTML = "Too high! Try again.";
+    document.getElementById('message').innerHTML = "Too high! Try again.";
     guessResult.textContent = userGuess + " - Too high";
   } else {
-    document.getElementById('result').innerHTML = "Congratulations! You got it right!";
+    document.getElementById('message').innerHTML = "Congratulations! You got it right!";
     guessResult.textContent = userGuess + " - Correct!";
     winCount++;
     localStorage.setItem('wins', winCount);
@@ -38,7 +38,7 @@ function playGame() {
   }
 
   if (attempts === 3 && userGuess != randomNumber) {
-    document.getElementById('result').innerHTML = "Sorry, you didn't guess the number. The number was " + randomNumber;
+    document.getElementById('message').innerHTML = "Sorry, you didn't guess the number. The number was " + randomNumber;
     lossCount++;
     localStorage.setItem('losses', lossCount);
     document.getElementById('loss-count').textContent = lossCount;
@@ -75,6 +75,7 @@ function resetGame() {
     document.getElementById('submit-button').style.display = 'block'; // show submit button
     document.getElementById('guess-history').innerHTML = ''; // clear guess history
     document.getElementById('result').innerHTML = ''; // clear result
+    document.getElementById('message').innerHTML = ''; // clear message
     randomNumber = Math.floor(Math.random() * 10) + 1; // generate new random number
     attempts = 0; // reset attempts
 }
