@@ -29,7 +29,7 @@ function playGame() {
     document.getElementById('message').innerHTML = "Too high! Try again.";
     guessResult.textContent = userGuess + " - Too high";
   } else {
-    document.getElementById('message').innerHTML = "Congratulations! You got it right!";
+    showPopup("Congratulations! You got it right!");
     guessResult.textContent = userGuess + " - Correct!";
     winCount++;
     localStorage.setItem('wins', winCount);
@@ -38,7 +38,7 @@ function playGame() {
   }
 
   if (attempts === 3 && userGuess != randomNumber) {
-    document.getElementById('message').innerHTML = "Sorry, you didn't guess the number. The number was " + randomNumber;
+    showPopup("Sorry, you didn't guess the number. The number was " + randomNumber);
     lossCount++;
     localStorage.setItem('losses', lossCount);
     document.getElementById('loss-count').textContent = lossCount;
@@ -87,4 +87,29 @@ function resetScoreboard() {
   localStorage.setItem('losses', lossCount.toString());
   document.getElementById('win-count').textContent = winCount;
   document.getElementById('loss-count').textContent = lossCount;
+}
+
+// Popup function
+function showPopup(message) {
+    let popup = document.createElement('div');
+    popup.id = "popup-message";
+    popup.textContent = message;
+
+    // CSS for the popup
+    popup.style.position = 'fixed';
+    popup.style.left = '50%';
+    popup.style.top = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.padding = '20px';
+    popup.style.backgroundColor = '#fff';
+    popup.style.border = '1px solid #333';
+    popup.style.borderRadius = '5px';
+    popup.style.zIndex = '1000';
+    popup.style.textAlign = 'center';
+
+    document.body.appendChild(popup);
+
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 3000);
 }
