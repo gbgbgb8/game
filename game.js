@@ -1,10 +1,14 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
-
 let guessInput = document.getElementById('guess');
-guessInput.addEventListener('focus', function() {
-    this.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
-});
+
+function appendNumber(number) {
+    guessInput.value += number;
+}
+
+function clearGuess() {
+    guessInput.value = '';
+}
 
 function playGame() {
   let userGuess = guessInput.value;
