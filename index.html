@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.5;
         }
 
         body {
@@ -16,160 +19,30 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            color: #333;
         }
 
         h1, p {
             text-align: center;
-            color: #333;
-        }
-
-        #game-info {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #result-container {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        #game-container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 800px;
-            width: 100%;
-        }
-
-        #game-control {
-            width: 60%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #game-status {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #scoreboard {
-            background-color: #FFF;
-            color: #000;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        #scoreboard h2, #scoreboard p {
-            color: #000;
-        }
-
-        #guess {
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #guess-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        input[type=number] {
-            width: 70%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 10px;
         }
 
         input[type=submit],
-        #play-again {
+        #play-again,
+        .number-button,
+        #start-button,
+        #reset-scoreboard {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #FFF;
+            background: linear-gradient(to right, #fbc2eb, #a6c1ee);
             color: #333;
             cursor: pointer;
             transition: background-color 0.3s;
-            width: 28%;
         }
 
         input[type=submit]:hover,
-        #play-again:hover {
-            background-color: #ddd;
-        }
-
-        #result {
-            text-align: center;
-            font-size: 20px;
-            color: #333;
-            margin: 0 10px;
-        }
-
-        #guess-history {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-        }
-
-        #guess-history li {
-            background-color: #FFF;
-            color: #333;
-            padding: 5px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
-
-        #number-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 10px;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .number-button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #FFF;
-            color: #333;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 20px;
-            width: 90%;
-        }
-
-        .number-button:hover {
-            background-color: #ddd;
-        }
-
-        #reset-scoreboard {
-            margin: 10px auto;
-            display: block;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #FFF;
-            color: #333;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
+        #play-again:hover,
+        .number-button:hover,
+        #start-button:hover,
         #reset-scoreboard:hover {
             background-color: #ddd;
         }
@@ -187,28 +60,23 @@
             align-items: center;
             transition: opacity 1s;
             z-index: 999;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards;
         }
 
-        #start-button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #FFF;
-            color: #333;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
-        #start-button:hover {
-            background-color: #ddd;
+        @media screen and (max-width: 600px) {
+            /* Adjust styles for mobile screens */
         }
-
     </style>
 </head>
 
 <body>
-
     <div id="splash-screen">
         <h1>Kelsey's number guessing game!</h1>
         <p>We have selected a random number between 1 and 10. See if you can guess it in 3 attempts:</p>
@@ -222,7 +90,6 @@
     </div>
 
     <div id="game-container">
-
         <div id="game-control">
             <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
                 <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
@@ -256,13 +123,11 @@
             <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             <ul id="guess-history"></ul>
         </div>
-
     </div>
 
     <script src="game.js"></script>
     <script>
-        // New JavaScript code to handle splash screen
-        setTimeout(startGame, 10000);  // start game automatically after 10 seconds
+        setTimeout(startGame, 10000);
 
         function startGame() {
             let splashScreen = document.getElementById('splash-screen');
@@ -270,9 +135,8 @@
 
             setTimeout(function() {
                 splashScreen.style.display = 'none';
-            }, 1000);  // after 1 second (the duration of the fade-out animation), remove the splash screen from the display
+            }, 1000);
         }
     </script>
-
 </body>
 </html>
