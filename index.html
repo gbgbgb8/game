@@ -83,19 +83,6 @@
             gap: 10px;
         }
 
-        /* Styling for the scoreboard */
-        #scoreboard-container {
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 10px 0;
-            background-color: #fff;
-        }
-
-        #scoreboard {
-            text-align: center;
-        }
-
         @media screen and (max-width: 600px) {
             /* Adjust styles for mobile screens */
         }
@@ -141,14 +128,12 @@
         </div>
 
         <div id="game-status">
-            <div id="scoreboard-container">
-                <div id="scoreboard">
-                    <h2>Scoreboard</h2>
-                    <p>Wins: <span id="win-count">0</span></p>
-                    <p>Losses: <span id="loss-count">0</span></p>
-                </div>
-                <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
+            <div id="scoreboard">
+                <h2>Scoreboard</h2>
+                <p>Wins: <span id="win-count">0</span></p>
+                <p>Losses: <span id="loss-count">0</span></p>
             </div>
+            <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             <ul id="guess-history"></ul>
         </div>
     </div>
