@@ -1,6 +1,10 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
 let guessInput = document.getElementById('guess');
+let winCount = localStorage.getItem('wins') || 0;
+let lossCount = localStorage.getItem('losses') || 0;
+document.getElementById('win-count').textContent = winCount;
+document.getElementById('loss-count').textContent = lossCount;
 
 function appendNumber(number) {
     guessInput.value += number;
@@ -26,11 +30,17 @@ function playGame() {
   } else {
     document.getElementById('result').innerHTML = "Congratulations! You got it right!";
     guessResult.textContent = userGuess + " - Correct!";
+    winCount++;
+    localStorage.setItem('wins', winCount);
+    document.getElementById('win-count').textContent = winCount;
     endGame();
   }
 
   if (attempts === 3 && userGuess != randomNumber) {
     document.getElementById('result').innerHTML = "Sorry, you didn't guess the number. The number was " + randomNumber;
+    lossCount++;
+    localStorage.setItem('losses', lossCount);
+    document.getElementById('loss-count').textContent = lossCount;
     endGame();
   }
 
@@ -66,4 +76,11 @@ function resetGame() {
     document.getElementById('result').innerHTML = ''; // clear result
     randomNumber = Math.floor(Math.random() * 10) + 1; // generate new random number
     attempts = 0; // reset attempts
+}
+
+function resetScoreboard() {
+    localStorage.setItem('wins', 0);
+    localStorage.setItem('losses', 0);
+    document.getElementById('win-count').textContent = '0';
+    document.getElementById('loss-count').textContent = '0';
 }
