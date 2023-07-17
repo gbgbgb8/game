@@ -1,8 +1,17 @@
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
 let guessInput = document.getElementById('guess');
-let winCount = 0;  // Removed localStorage.getItem
-let lossCount = 0;  // Removed localStorage.getItem
+let winCount = 0;
+let lossCount = 0;
+
+let winEmojis = ["🥳", "🎉", "🏆", "💪"];
+let loseEmojis = ["😢", "💔", "👎", "🙁"];
+let tieEmojis = ["😐", "🤝", "😶", "🤷"];
+
+function getRandomEmoji(emojiArray) {
+    let randomIndex = Math.floor(Math.random() * emojiArray.length);
+    return emojiArray[randomIndex];
+}
 
 document.getElementById('win-count').textContent = winCount;
 document.getElementById('loss-count').textContent = lossCount;
@@ -16,35 +25,35 @@ function clearGuess() {
 }
 
 function playGame() {
-  let userGuess = guessInput.value;
-  attempts++;
+    let userGuess = guessInput.value;
+    attempts++;
 
-  let guessHistory = document.getElementById('guess-history');
-  let guessResult = document.createElement('li');
+    let guessHistory = document.getElementById('guess-history');
+    let guessResult = document.createElement('li');
 
-  if (userGuess < randomNumber) {
-    document.getElementById('message').innerHTML = "Too low! Try again.";
-    guessResult.textContent = userGuess + " - Too low";
-  } else if (userGuess > randomNumber) {
-    document.getElementById('message').innerHTML = "Too high! Try again.";
-    guessResult.textContent = userGuess + " - Too high";
-  } else {
-    showPopup("Congratulations! You got it right!");
-    guessResult.textContent = userGuess + " - Correct!";
-    winCount++;
-    document.getElementById('win-count').textContent = winCount;
-    endGame();
-  }
+    if (userGuess < randomNumber) {
+        document.getElementById('message').innerHTML = "Too low! Try again. " + getRandomEmoji(loseEmojis);
+        guessResult.textContent = userGuess + " - Too low";
+    } else if (userGuess > randomNumber) {
+        document.getElementById('message').innerHTML = "Too high! Try again. " + getRandomEmoji(loseEmojis);
+        guessResult.textContent = userGuess + " - Too high";
+    } else {
+        showPopup("Congratulations! You got it right! " + getRandomEmoji(winEmojis));
+        guessResult.textContent = userGuess + " - Correct!";
+        winCount++;
+        document.getElementById('win-count').textContent = winCount;
+        endGame();
+    }
 
-  if (attempts === 3 && userGuess != randomNumber) {
-    showPopup("Sorry, you didn't guess the number. The number was " + randomNumber);
-    lossCount++;
-    document.getElementById('loss-count').textContent = lossCount;
-    endGame();
-  }
+    if (attempts === 3 && userGuess != randomNumber) {
+        showPopup("Sorry, you didn't guess the number. The number was " + randomNumber + " " + getRandomEmoji(loseEmojis));
+        lossCount++;
+        document.getElementById('loss-count').textContent = lossCount;
+        endGame();
+    }
 
-  guessHistory.appendChild(guessResult);
-  guessInput.value = ""; // clear the input for the next guess
+    guessHistory.appendChild(guessResult);
+    guessInput.value = ""; // clear the input for the next guess
 }
 
 function endGame() {
