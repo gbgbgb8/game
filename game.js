@@ -61,6 +61,7 @@ function playGame() {
     }
 
     // Display the guesses and the message
+    
     document.getElementById('guesses').textContent += message + '\n';
     document.getElementById('guess').value = '';  // Clear the current guess
 
