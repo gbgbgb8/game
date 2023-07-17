@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -86,27 +85,17 @@
             }
         }
 
-        @media screen and (max-width: 600px) {
-            #splash-screen {
-                padding: 10px;
-            }
-
-            #splash-screen h1 {
-                font-size: 20px;
-            }
-
-            #splash-screen p {
-                font-size: 14px;
-            }
-
-            #splash-screen #start-button {
-                padding: 10px 20px;
-                font-size: 16px;
-            }
-        }
-
         #guess-form {
-            display: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+            flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
         #number-grid {
@@ -121,45 +110,29 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        #scoreboard-container, #guesses-container {
+        #scoreboard-container {
             border: 2px solid #333;
             border-radius: 10px;
-            padding: 5px;
+            padding: 20px;
             margin: 10px 0;
             background-color: #fff;
             width: 100%;
-            max-width: 200px;
+            max-width: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        #scoreboard, #guesses {
-            font-size: 14px;
-            margin-bottom: 5px;
-            white-space: pre-wrap;  /* New rule to preserve line breaks in Guesses box */
-        }
-
         #reset-scoreboard {
             width: 80%;
-            font-size: 14px;
-            padding: 5px 10px;
-        }
-
-        .flex-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 420px;
         }
 
         @media screen and (max-width: 600px) {
             body {
                 padding: 0;
             }
-            #number-grid, .flex-container {
+            #guess-form, #number-grid, #scoreboard-container {
                 width: 100%;
                 margin-left: auto;
                 margin-right: auto;
@@ -175,20 +148,10 @@
         <button id="start-button" onclick="startGame()">Let's Play!</button>
     </div>
 
-    <div class="flex-container">
-        <div id="scoreboard-container">
-            <div id="scoreboard">
-                <h2>Scoreboard</h2>
-                <p>Wins: <span id="win-count">0</span></p>
-                <p>Losses: <span id="loss-count">0</span></p>
-            </div>
-            <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-        </div>
-
-        <div id="guesses-container">
-            <h2>Guesses</h2>
-            <pre id="guesses"></pre>
-        </div>
+    <div id="result-container">
+        <p id="result"></p>
+        <p id="message"></p>
+        <p id="countdown"></p>
     </div>
 
     <div id="game-container">
@@ -217,6 +180,14 @@
         </div>
 
         <div id="game-status">
+            <div id="scoreboard-container">
+                <div id="scoreboard">
+                    <h2>Scoreboard</h2>
+                    <p>Wins: <span id="win-count">0</span></p>
+                    <p>Losses: <span id="loss-count">0</span></p>
+                </div>
+                <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
+            </div>
             <ul id="guess-history"></ul>
         </div>
     </div>
