@@ -1,113 +1,98 @@
+// Initialize the game state
 let randomNumber = Math.floor(Math.random() * 10) + 1;
 let attempts = 0;
-let guessInput = document.getElementById('guess');
 let winCount = 0;
 let lossCount = 0;
 
-let winEmojis = ["🥳", "🎉", "🏆", "💪"];
-let loseEmojis = ["😢", "💔", "👎", "🙁"];
-let tieEmojis = ["😐", "🤝", "😶", "🤷"];
-
-function getRandomEmoji(emojiArray) {
-    let randomIndex = Math.floor(Math.random() * emojiArray.length);
-    return emojiArray[randomIndex];
+// Update the guesses display with the player's current guess
+function displayGuesses(guess) {
+    document.getElementById('guesses').textContent += 'Your guess: ' + guess + '\n';
 }
 
-document.getElementById('win-count').textContent = winCount;
-document.getElementById('loss-count').textContent = lossCount;
-
+// Append a number to the current guess
 function appendNumber(number) {
-    guessInput.value += number;
+    let guessInput = document.getElementById('guess');
+    guessInput.value = guessInput.value.toString() + number.toString();
+    displayGuesses(guessInput.value);  // Display the current guess as the player enters it
 }
 
+// Clear the current guess
 function clearGuess() {
-    guessInput.value = '';
+    document.getElementById('guess').value = '';
 }
 
+// Play the game
 function playGame() {
-    let userGuess = guessInput.value;
-    attempts++;
+    let guess = Number(document.getElementById('guess').value);
+    let message = '';
 
-    let guessHistory = document.getElementById('guess-history');
-    let guessResult = document.createElement('li');
-
-    if (userGuess < randomNumber) {
-        document.getElementById('message').innerHTML = "Too low! Try again. " + getRandomEmoji(loseEmojis);
-        guessResult.textContent = userGuess + " - Too low";
-    } else if (userGuess > randomNumber) {
-        document.getElementById('message').innerHTML = "Too high! Try again. " + getRandomEmoji(loseEmojis);
-        guessResult.textContent = userGuess + " - Too high";
-    } else {
-        showPopup("Congratulations! You got it right! " + getRandomEmoji(winEmojis));
-        guessResult.textContent = userGuess + " - Correct!";
-        winCount++;
-        document.getElementById('win-count').textContent = winCount;
-        endGame();
+    // If the guess is not a number, display a warning and return
+    if (isNaN(guess)) {
+        message = 'Please enter a number between 1 and 10.';
     }
-
-    if (attempts === 3 && userGuess != randomNumber) {
-        showPopup("Sorry, you didn't guess the number. The number was " + randomNumber + " " + getRandomEmoji(loseEmojis));
-        lossCount++;
-        document.getElementById('loss-count').textContent = lossCount;
-        endGame();
+    else if (guess < 1 || guess > 10) {
+        // If the guess is not within the range, display a warning and return
+        message = 'Your guess is out of range. Please enter a number between 1 and 10.';
     }
+    else {
+        attempts++;
 
-    guessHistory.appendChild(guessResult);
-    guessInput.value = ""; // clear the input for the next guess
-}
-
-function endGame() {
-    guessInput.disabled = true; // disable input
-    document.getElementById('submit-button').style.display = 'none'; // hide submit button
-
-    // start the countdown
-    let countdown = 3;
-    let countdownDisplay = document.getElementById('countdown');
-    countdownDisplay.textContent = "New game in: " + countdown;
-
-    let countdownTimer = setInterval(function() {
-        countdown -= 1;
-        countdownDisplay.textContent = "New game in: " + countdown;
-
-        if (countdown <= 0) {
-            clearInterval(countdownTimer);
-            countdownDisplay.textContent = "";
+        // Determine if the guess is too high, too low, or correct, and display an appropriate message
+        if (guess > randomNumber) {
+            message = guess + ' - Too high!';
+        }
+        else if (guess < randomNumber) {
+            message = guess + ' - Too low!';
+        }
+        else {
+            message = guess + ' - Correct! You won!';
+            winCount++;
+            document.getElementById('win-count').textContent = winCount;
             resetGame();
         }
-    }, 1000); // decrease the countdown every second
+
+        // If the player has had 3 attempts without guessing correctly, they lose
+        if (attempts >= 3 && guess != randomNumber) {
+            message += '\nYou lost! The number was ' + randomNumber + '.';
+            lossCount++;
+            document.getElementById('loss-count').textContent = lossCount;
+            resetGame();
+        }
+    }
+
+    // Display the guesses and the message
+    document.getElementById('guesses').textContent += message + '\n';
+    document.getElementById('guess').value = '';  // Clear the current guess
+
+    // If the game is over, display the 'Play Again' button
+    if (message.includes('won') || message.includes('lost')) {
+        document.getElementById('play-again').style.display = 'block';
+    }
 }
 
+// Reset the game state
 function resetGame() {
-    guessInput.disabled = false; // enable input
-    document.getElementById('submit-button').style.display = 'block'; // show submit button
-    document.getElementById('guess-history').innerHTML = ''; // clear guess history
-    document.getElementById('result').innerHTML = ''; // clear result
-    document.getElementById('message').innerHTML = ''; // clear message
-    randomNumber = Math.floor(Math.random() * 10) + 1; // generate new random number
-    attempts = 0; // reset attempts
+    randomNumber = Math.floor(Math.random() * 10) + 1;
+    attempts = 0;
+    document.getElementById('guess').value = '';
+    document.getElementById('guesses').textContent = '';
+    document.getElementById('play-again').style.display = 'none';
 }
 
-// Popup function
-function showPopup(message) {
-    let popup = document.createElement('div');
-    popup.id = "popup-message";
-    popup.textContent = message;
+// Reset the scoreboard
+function resetScoreboard() {
+    winCount = 0;
+    lossCount = 0;
+    document.getElementById('win-count').textContent = winCount;
+    document.getElementById('loss-count').textContent = lossCount;
+}
 
-    // CSS for the popup
-    popup.style.position = 'fixed';
-    popup.style.left = '50%';
-    popup.style.top = '50%';
-    popup.style.transform = 'translate(-50%, -50%)';
-    popup.style.padding = '20px';
-    popup.style.backgroundColor = '#fff';
-    popup.style.border = '1px solid #333';
-    popup.style.borderRadius = '5px';
-    popup.style.zIndex = '1000';
-    popup.style.textAlign = 'center';
-
-    document.body.appendChild(popup);
+// Start the game after a delay
+function startGame() {
+    let splashScreen = document.getElementById('splash-screen');
+    splashScreen.style.opacity = '0';
 
     setTimeout(function() {
-        popup.style.display = 'none';
-    }, 3000);
+        splashScreen.style.display = 'none';
+    }, 1000);
 }
