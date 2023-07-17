@@ -129,7 +129,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        #scoreboard-container {
+        #scoreboard-container, #guesses-container {
             border: 2px solid #333;
             border-radius: 10px;
             padding: 5px;
@@ -143,7 +143,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        #scoreboard {
+        #scoreboard, #guesses {
             font-size: 14px;
             margin-bottom: 5px;
         }
@@ -154,30 +154,19 @@
             padding: 5px 10px;
         }
 
-        #guesses-container {
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 5px;
-            margin: 10px 0;
-            background-color: #fff;
-            width: 100%;
-            max-width: 200px;
+        .flex-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        }
-
-        #guesses {
-            font-size: 14px;
-            margin-bottom: 5px;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 420px;
         }
 
         @media screen and (max-width: 600px) {
             body {
                 padding: 0;
             }
-            #guess-form, #number-grid, #scoreboard-container, #guesses-container {
+            #guess-form, #number-grid, .flex-container {
                 width: 100%;
                 margin-left: auto;
                 margin-right: auto;
@@ -193,20 +182,22 @@
         <button id="start-button" onclick="startGame()">Let's Play!</button>
     </div>
 
-    <div id="scoreboard-container">
-        <div id="scoreboard">
-            <h2>Scoreboard</h2>
-            <p>Wins: <span id="win-count">0</span></p>
-            <p>Losses: <span id="loss-count">0</span></p>
+    <div class="flex-container">
+        <div id="scoreboard-container">
+            <div id="scoreboard">
+                <h2>Scoreboard</h2>
+                <p>Wins: <span id="win-count">0</span></p>
+                <p>Losses: <span id="loss-count">0</span></p>
+            </div>
+            <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
         </div>
-        <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-    </div>
 
-    <div id="guesses-container">
-        <h2>Guesses</h2>
-        <p id="result"></p>
-        <p id="message"></p>
-        <p id="countdown"></p>
+        <div id="guesses-container">
+            <h2>Guesses</h2>
+            <p id="result"></p>
+            <p id="message"></p>
+            <p id="countdown"></p>
+        </div>
     </div>
 
     <div id="game-container">
