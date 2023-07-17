@@ -132,7 +132,7 @@
         #scoreboard-container {
             border: 2px solid #333;
             border-radius: 10px;
-            padding: 20px;
+            padding: 10px;
             margin: 10px 0;
             background-color: #fff;
             width: 100%;
@@ -167,6 +167,15 @@
         <button id="start-button" onclick="startGame()">Let's Play!</button>
     </div>
 
+    <div id="scoreboard-container">
+        <div id="scoreboard">
+            <h2>Scoreboard</h2>
+            <p>Wins: <span id="win-count">0</span></p>
+            <p>Losses: <span id="loss-count">0</span></p>
+        </div>
+        <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
+    </div>
+
     <div id="result-container">
         <p id="result"></p>
         <p id="message"></p>
@@ -199,14 +208,6 @@
         </div>
 
         <div id="game-status">
-            <div id="scoreboard-container">
-                <div id="scoreboard">
-                    <h2>Scoreboard</h2>
-                    <p>Wins: <span id="win-count">0</span></p>
-                    <p>Losses: <span id="loss-count">0</span></p>
-                </div>
-                <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
-            </div>
             <ul id="guess-history"></ul>
         </div>
     </div>
