@@ -144,7 +144,12 @@
 <body>
     <div id="splash-screen">
         <h1>Kelsey's number guessing game!</h1>
-        <p>We have selected a random number between 1 and 10. See if you can guess it in 3 attempts:</p>
+        <p id="splash-text"></p>
+        <select id="difficulty" onchange="startGame()">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
         <button id="start-button" onclick="startGame()">Let's Play!</button>
     </div>
 
@@ -195,15 +200,6 @@
     <script src="game.js"></script>
     <script>
         setTimeout(startGame, 10000);
-
-        function startGame() {
-            let splashScreen = document.getElementById('splash-screen');
-            splashScreen.style.opacity = '0';
-
-            setTimeout(function() {
-                splashScreen.style.display = 'none';
-            }, 1000);
-        }
     </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
-let randomNumber = Math.floor(Math.random() * 10) + 1;
-let attempts = 0;
+let difficulty = 'easy';
+let randomNumber, maxAttempts;
+
 let guessInput = document.getElementById('guess');
 let winCount = 0;
 let lossCount = 0;
@@ -45,7 +46,7 @@ function playGame() {
         endGame();
     }
 
-    if (attempts === 3 && userGuess != randomNumber) {
+    if (attempts === maxAttempts && userGuess != randomNumber) {
         showPopup("Sorry, you didn't guess the number. The number was " + randomNumber + " " + getRandomEmoji(loseEmojis));
         lossCount++;
         document.getElementById('loss-count').textContent = lossCount;
@@ -83,8 +84,39 @@ function resetGame() {
     document.getElementById('guess-history').innerHTML = ''; // clear guess history
     document.getElementById('result').innerHTML = ''; // clear result
     document.getElementById('message').innerHTML = ''; // clear message
-    randomNumber = Math.floor(Math.random() * 10) + 1; // generate new random number
+    setDifficultyParameters(); // set parameters according to the selected difficulty level
     attempts = 0; // reset attempts
+}
+
+function startGame() {
+    let splashScreen = document.getElementById('splash-screen');
+    splashScreen.style.opacity = '0';
+
+    setTimeout(function() {
+        splashScreen.style.display = 'none';
+    }, 1000);
+
+    setDifficultyParameters();
+    document.getElementById('splash-text').textContent = "We have selected a random number for the " + difficulty + " level. You have " + maxAttempts + " attempts to guess it:";
+}
+
+function setDifficultyParameters() {
+    let difficultySelect = document.getElementById('difficulty');
+    difficulty = difficultySelect.options[difficultySelect.selectedIndex].value;
+
+    if (difficulty === 'easy') {
+        randomNumber = Math.floor(Math.random() * 10) + 1;
+        maxAttempts = 3;
+        guessInput.setAttribute('max', '10');
+    } else if (difficulty === 'medium') {
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+        maxAttempts = 7;
+        guessInput.setAttribute('max', '100');
+    } else {
+        randomNumber = Math.floor(Math.random() * 1000) + 1;
+        maxAttempts = 9;
+        guessInput.setAttribute('max', '1000');
+    }
 }
 
 // Popup function
