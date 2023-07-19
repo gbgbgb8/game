@@ -154,7 +154,8 @@
             flex-wrap: wrap;
         }
 
-        @media screen and (max-width: 600px) {
+        /* For mobile devices with width less than or equal to 375px (iPhone 8) */
+        @media screen and (max-width: 375px) {
             body {
                 padding: 0;
             }
@@ -166,10 +167,31 @@
             #game-container {
                 flex-direction: column;
             }
+            #splash-screen h1 {
+                font-size: 20px;
+            }
+            #splash-screen p {
+                font-size: 14px;
+            }
+            #splash-screen #start-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
         }
         
-        @media screen and (max-width: 1024px) {
-            /* CSS for iPads and iPhones in landscape */
+        /* For desktop and larger screens */
+        @media screen and (min-width: 1024px) {
+            body {
+                padding: 0 10%;
+            }
+            #guess-form, #number-grid, #scoreboard-container, #result-container, #input-container {
+                width: 100%;
+                margin: 0 auto;
+            }
+            #game-container {
+                flex-direction: row;
+                flex-wrap: nowrap;
+            }
         }
     </style>
 </head>
