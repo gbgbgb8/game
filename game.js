@@ -105,7 +105,7 @@ function showPopup(message) {
     popup.style.zIndex = '1000';
     popup.style.textAlign = 'center';
 
-    let countdown = 3;
+    let countdown = 5;
     let countdownElement = document.createElement('p');
     countdownElement.textContent = "New game in: " + countdown;
     popup.appendChild(countdownElement);
