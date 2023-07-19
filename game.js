@@ -91,7 +91,7 @@ function resetGame() {
 function showPopup(message) {
     let popup = document.createElement('div');
     popup.id = "popup-message";
-    popup.textContent = message;
+    popup.innerHTML = message;
 
     // CSS for the popup
     popup.style.position = 'fixed';
@@ -105,9 +105,22 @@ function showPopup(message) {
     popup.style.zIndex = '1000';
     popup.style.textAlign = 'center';
 
+    let countdown = 3;
+    let countdownElement = document.createElement('p');
+    countdownElement.textContent = "New game in: " + countdown;
+    popup.appendChild(countdownElement);
+
     document.body.appendChild(popup);
 
-    setTimeout(function() {
-        popup.style.display = 'none';
-    }, 3000);
+    let countdownTimer = setInterval(function() {
+        countdown -= 1;
+        countdownElement.textContent = "New game in: " + countdown;
+
+        if (countdown <= 0) {
+            clearInterval(countdownTimer);
+            countdownElement.textContent = "";
+            popup.style.display = 'none';
+            resetGame();
+        }
+    }, 1000); // decrease the countdown every second
 }
