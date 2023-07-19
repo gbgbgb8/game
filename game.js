@@ -61,7 +61,7 @@ function endGame() {
     document.getElementById('submit-button').style.display = 'none'; // hide submit button
 
     // start the countdown
-    let countdown = 3;
+    let countdown = 5;
     let countdownDisplay = document.getElementById('countdown');
     countdownDisplay.textContent = "New game in: " + countdown;
 
