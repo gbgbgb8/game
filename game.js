@@ -87,6 +87,26 @@ function resetGame() {
     attempts = 0; // reset attempts
 }
 
+
+function createFallingNumber() {
+    // create number element
+    let number = document.createElement('div');
+    number.textContent = Math.floor(Math.random() * 10); // random number between 0-9
+    number.className = 'number';
+    number.style.left = Math.random() * 100 + 'vw'; // random position
+    number.style.animationDuration = Math.random() * 2 + 2 + 's'; // random duration between 2-4 seconds
+    document.body.appendChild(number);
+
+    // remove the number after it falls
+    setTimeout(() => {
+        number.remove();
+    }, 4000);
+}
+
+// create a falling number every 500 milliseconds
+setInterval(createFallingNumber, 500);
+
+
 // Popup function
 function showPopup(message) {
     let popup = document.createElement('div');
