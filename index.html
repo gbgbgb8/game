@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -85,29 +86,42 @@
             }
         }
 
+        #input-container {
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 10px 0;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
         #guess-form {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            border: 2px solid #333;
-            border-radius: 10px;
-            margin: 10px 0;
-            background-color: #fff;
+            border-bottom: 2px solid #333; /* Separation line between form and number grid */
             flex-direction: column;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
         #number-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
+            padding: 20px;
+        }
+
+        #result-container {
             border: 2px solid #333;
             border-radius: 10px;
             margin: 10px 0;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            height: 200px; /* Adjust as needed */
+            width: 100%;
+            max-width: 300px;
+            overflow-y: auto;
         }
 
         #scoreboard-container {
@@ -128,15 +142,28 @@
             width: 80%;
         }
 
+        #game-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
         @media screen and (max-width: 600px) {
             body {
                 padding: 0;
             }
-            #guess-form, #number-grid, #scoreboard-container {
+            #guess-form, #number-grid, #scoreboard-container, #result-container, #input-container {
                 width: 100%;
                 margin-left: auto;
                 margin-right: auto;
             }
+            #game-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) {
+            /* CSS for iPads and iPhones in landscape */
         }
     </style>
 </head>
@@ -152,28 +179,30 @@
         <p id="result"></p>
         <p id="message"></p>
         <p id="countdown"></p>
+        <ul id="guess-history"></ul>
     </div>
 
     <div id="game-container">
         <div id="game-control">
-            <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
-                <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
-                <input type="submit" value="Submit" id="submit-button">
-            </form>
-            
-            <div id="number-grid">
-                <button class="number-button" onclick="appendNumber(1)">1</button>
-                <button class="number-button" onclick="appendNumber(2)">2</button>
-                <button class="number-button" onclick="appendNumber(3)">3</button>
-                <button class="number-button" onclick="appendNumber(4)">4</button>
-                <button class="number-button" onclick="appendNumber(5)">5</button>
-                <button class="number-button" onclick="appendNumber(6)">6</button>
-                <button class="number-button" onclick="appendNumber(7)">7</button>
-                <button class="number-button" onclick="appendNumber(8)">8</button>
-                <button class="number-button" onclick="appendNumber(9)">9</button>
-                <button class="number-button" onclick="appendNumber(0)">0</button>
-                <button class="number-button" onclick="clearGuess()">Clear</button>
-                <button class="number-button" onclick="playGame()">Submit</button>
+            <div id="input-container">
+                <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
+                    <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
+                    <input type="submit" value="Submit" id="submit-button">
+                </form>
+                <div id="number-grid">
+                    <button class="number-button" onclick="appendNumber(1)">1</button>
+                    <button class="number-button" onclick="appendNumber(2)">2</button>
+                    <button class="number-button" onclick="appendNumber(3)">3</button>
+                    <button class="number-button" onclick="appendNumber(4)">4</button>
+                    <button class="number-button" onclick="appendNumber(5)">5</button>
+                    <button class="number-button" onclick="appendNumber(6)">6</button>
+                    <button class="number-button" onclick="appendNumber(7)">7</button>
+                    <button class="number-button" onclick="appendNumber(8)">8</button>
+                    <button class="number-button" onclick="appendNumber(9)">9</button>
+                    <button class="number-button" onclick="appendNumber(0)">0</button>
+                    <button class="number-button" onclick="clearGuess()">Clear</button>
+                    <button class="number-button" onclick="playGame()">Submit</button>
+                </div>
             </div>
             
             <button id="play-again" style="display: none;" onclick="resetGame()">Play Again</button>
@@ -188,7 +217,7 @@
                 </div>
                 <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             </div>
-            <ul id="guess-history"></ul>
+            
         </div>
     </div>
 
