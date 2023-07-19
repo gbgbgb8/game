@@ -87,26 +87,6 @@ function resetGame() {
     attempts = 0; // reset attempts
 }
 
-
-function createFallingNumber() {
-    // create number element
-    let number = document.createElement('div');
-    number.textContent = Math.floor(Math.random() * 10); // random number between 0-9
-    number.className = 'number';
-    number.style.left = Math.random() * 100 + 'vw'; // random position
-    number.style.animationDuration = Math.random() * 2 + 2 + 's'; // random duration between 2-4 seconds
-    document.body.appendChild(number);
-
-    // remove the number after it falls
-    setTimeout(() => {
-        number.remove();
-    }, 4000);
-}
-
-// create a falling number every 500 milliseconds
-setInterval(createFallingNumber, 500);
-
-
 // Popup function
 function showPopup(message) {
     let popup = document.createElement('div');
@@ -143,4 +123,36 @@ function showPopup(message) {
             resetGame();
         }
     }, 1000); // decrease the countdown every second
+}
+
+setTimeout(startGame, 10000);
+
+function startGame() {
+    let splashScreen = document.getElementById('splash-screen');
+    splashScreen.style.opacity = '0';
+
+    setTimeout(function() {
+        splashScreen.style.display = 'none';
+    }, 1000);
+}
+
+setInterval(createFallingNumber, 500);
+
+function createFallingNumber() {
+    let number = Math.floor(Math.random() * 10);
+    let numberElement = document.createElement('div');
+    numberElement.className = 'falling-number';
+    numberElement.textContent = number;
+
+    let colors = ['#800080', '#FFC0CB'];
+    let randomColor = colors[Math.floor(Math.random() * colors.length)];
+    numberElement.style.color = randomColor;
+
+    document.body.appendChild(numberElement);
+    numberElement.style.left = Math.random() * window.innerWidth + 'px';
+    numberElement.style.animationDuration = Math.random() * 3 + 2 + 's'; 
+
+    setTimeout(function() {
+        document.body.removeChild(numberElement);
+    }, 5000);
 }

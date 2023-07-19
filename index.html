@@ -4,13 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-
-#input-container, #result-container, #scoreboard-container {
-    z-index: 1;
-    position: relative; /* z-index only works on positioned elements */
-}
-
-
         * {
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
@@ -27,6 +20,8 @@
             min-height: 100vh;
             margin: 0;
             padding: 10px;
+            position: relative; /* Allow the falling numbers to be placed relative to the body */
+            overflow: hidden; /* Hide falling numbers that are out of bounds */
         }
 
         h1, p {
@@ -161,6 +156,8 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
+            z-index: 1; /* Make sure the game container is above the falling numbers */
+            position: relative;
         }
 
         /* For mobile devices with width less than or equal to 375px (iPhone 8) */
@@ -203,27 +200,22 @@
             }
         }
 
-        .number {
-    position: absolute;
-    font-size: 2em;
-    animation: fall linear infinite;
-}
+        /* Falling number styles */
+        .falling-number {
+            position: absolute;
+            font-size: 3em;
+            animation: fall 5s linear infinite, sparkle 0.5s linear infinite;
+        }
 
-@keyframes fall {
-    0% {
-        transform: translateY(-100vh);
-        opacity: 1;
-    }
-    70% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-}
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
 
-        
+        @keyframes sparkle {
+            0% { color: #800080; transform: scale(1); }
+            50% { color: #FFC0CB; transform: scale(1.2); }
+             100% { color: #800080; transform: scale(1); }
+        }
     </style>
 </head>
 
@@ -291,6 +283,27 @@
             setTimeout(function() {
                 splashScreen.style.display = 'none';
             }, 1000);
+        }
+
+        setInterval(createFallingNumber, 500);
+
+        function createFallingNumber() {
+            let number = Math.floor(Math.random() * 10);
+            let numberElement = document.createElement('div');
+            numberElement.className = 'falling-number';
+            numberElement.textContent = number;
+
+            let colors = ['#800080', '#FFC0CB'];
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            numberElement.style.color = randomColor;
+
+            document.body.appendChild(numberElement);
+            numberElement.style.left = Math.random() * window.innerWidth + 'px';
+            numberElement.style.animationDuration = Math.random() * 3 + 2 + 's'; 
+
+            setTimeout(function() {
+                document.body.removeChild(numberElement);
+            }, 5000);
         }
     </script>
 </body>
