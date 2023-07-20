@@ -97,15 +97,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
-        #guess-form {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 2px solid #333; /* Separation line between form and number grid */
-            flex-direction: column;
-        }
-
         #number-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -165,7 +156,7 @@
             body {
                 padding: 0;
             }
-            #guess-form, #number-grid, #scoreboard-container, #result-container, #input-container {
+            #number-grid, #scoreboard-container, #result-container, #input-container {
                 width: 100%;
                 margin-left: auto;
                 margin-right: auto;
@@ -190,7 +181,7 @@
             body {
                 padding: 0 10%;
             }
-            #guess-form, #number-grid, #scoreboard-container, #result-container, #input-container {
+            #number-grid, #scoreboard-container, #result-container, #input-container {
                 width: 100%;
                 margin: 0 auto;
             }
@@ -219,7 +210,6 @@
         }
     </style>
 </head>
-
 <body>
     <div id="splash-screen">
         <h1>Kelsey's number guessing game!</h1>
@@ -237,10 +227,6 @@
     <div id="game-container">
         <div id="game-control">
             <div id="input-container">
-                <form id="guess-form" onsubmit="event.preventDefault(); playGame();">
-                    <input type="number" id="guess" name="guess" min="0" max="10" placeholder="Enter your guess">
-                    <input type="submit" value="Submit" id="submit-button">
-                </form>
                 <div id="number-grid">
                     <button class="number-button" onclick="appendNumber(1)">1</button>
                     <button class="number-button" onclick="appendNumber(2)">2</button>
@@ -269,7 +255,6 @@
                 </div>
                 <button id="reset-scoreboard" onclick="resetScoreboard()">Reset Scoreboard</button>
             </div>
-            
         </div>
     </div>
 
